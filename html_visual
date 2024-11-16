@@ -1,17 +1,30 @@
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
 from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.chrome import service
+from webdriver_manager.chrome import ChromeDriverManager
 import os
 import time
 
-file = "file://"+input("file: ")
+choice = input("do you want to use Firefox or Chrome(F ; C) : ")
 
-service = Service(GeckoDriverManager().install())
+while True :
+    if choice == "F":
+        file = input("file: ")
+        service = Service(GeckoDriverManager().install())
+        driver = webdriver.Firefox(service=service)
+        break
 
-driver = webdriver.Firefox(service=service)
+    elif choice == "C" :
+        file = input("file: ")
+        service = service.Service(ChromeDriverManager().install())
+        driver = webdriver.Chrome(service=service)
+        break
 
-driver.get(file)
+    input("press F or C : ")
+
+
+driver.get("file://"+file)
 
 f_time = os.stat(file)
 
